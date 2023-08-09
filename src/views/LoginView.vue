@@ -2,7 +2,7 @@
 import { useForm, useField } from 'vee-validate'
 
 import { loginSchema as validationSchema } from '@/validation/loginSchema'
-import { authStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/auth'
 
 export interface LoginForm {
   email: string
@@ -10,7 +10,7 @@ export interface LoginForm {
 }
 
 const { handleSubmit } = useForm<LoginForm>({ validationSchema })
-const auth = authStore()
+const auth = useAuthStore()
 
 const email = useField('email')
 const password = useField('password')

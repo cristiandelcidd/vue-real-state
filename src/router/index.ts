@@ -13,7 +13,29 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/LoginView.vue')
+      component: () => import('@/views/LoginView.vue')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('@/views/admin/AdminLayout.vue'),
+      children: [
+        {
+          path: '/admin/properties',
+          name: 'admin-properties',
+          component: () => import('@/views/admin/AdminView.vue')
+        },
+        {
+          path: '/admin/create',
+          name: 'create-property',
+          component: () => import('@/views/admin/CreatePropertyView.vue')
+        },
+        {
+          path: '/admin/edit/:id',
+          name: 'edit-property',
+          component: () => import('@/views/admin/EditPropertyView.vue')
+        }
+      ]
     }
   ]
 })
