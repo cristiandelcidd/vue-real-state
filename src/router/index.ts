@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { onAuthStateChanged } from 'firebase/auth'
+import { useFirebaseAuth } from 'vuefire'
 
 import HomeView from '@/views/HomeView.vue'
 
@@ -18,6 +20,7 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
+      meta: { requiresAuth: true },
       component: () => import('@/views/admin/AdminLayout.vue'),
       children: [
         {
@@ -38,6 +41,39 @@ const router = createRouter({
       ]
     }
   ]
+})
+
+const authenticateUser = () => {
+  const auth = useFirebaseAuth()
+
+  if (!auth) throw new Error('Auth was not provided!')
+
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      unsubscribe()
+
+      if (user) resolve(user)
+      else reject()
+    })
+  })
+}
+
+// Navigation guard
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some((url) => url.meta.requiresAuth)
+
+  if (requiresAuth) {
+    try {
+      await authenticateUser()
+
+      next()
+    } catch (error) {
+      console.log(error)
+      next({ name: 'login' })
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

@@ -25,7 +25,7 @@ const submit = handleSubmit((loginFormValues) => {
 <template>
   <v-card flat max-width="600" class="mx-auto my-10">
     <v-card-title class="text-h4 font-weight-bold" tag="h3">Login</v-card-title>
-    <v-card-subtitle class="text-h6">Login with your account</v-card-subtitle>
+    <v-card-subtitle class="text-h6 py-5">Login with your account</v-card-subtitle>
 
     <v-alert
       v-if="auth.showErrorMessage"
