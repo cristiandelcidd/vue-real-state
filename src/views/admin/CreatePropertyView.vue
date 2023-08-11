@@ -10,19 +10,10 @@ import 'leaflet/dist/leaflet.css'
 import { validationSchema, imageSchema } from '@/validation/propertySchema'
 import { useImage } from '@/composables/useImage'
 import { useLocationMap } from '@/composables/useLocationMap'
+import { PROPERTIES } from '@/constants'
+import type { PropertyFormValues } from '@/types'
 
-interface FormValues {
-  description: string
-  image: File[]
-  parkingLot: number
-  pool: boolean
-  price: string
-  rooms: number
-  title: string
-  wc: number
-}
-
-const { handleSubmit } = useForm<FormValues>({
+const { handleSubmit } = useForm<PropertyFormValues>({
   validationSchema: { ...validationSchema, ...imageSchema }
 })
 
@@ -47,7 +38,7 @@ const pool = useField<boolean>('pool', {}, { initialValue: false })
 const submit = handleSubmit(async (propertyFormValues) => {
   const { image, ...property } = propertyFormValues
 
-  const docRef = await addDoc(collection(db, 'properties'), {
+  const docRef = await addDoc(collection(db, PROPERTIES), {
     ...property,
     image: url.value,
     location: center.value

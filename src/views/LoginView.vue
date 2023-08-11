@@ -3,13 +3,9 @@ import { useForm, useField } from 'vee-validate'
 
 import { loginSchema as validationSchema } from '@/validation/loginSchema'
 import { useAuthStore } from '@/stores/auth'
+import type { LoginFormValues } from '@/types'
 
-export interface LoginForm {
-  email: string
-  password: string
-}
-
-const { handleSubmit } = useForm<LoginForm>({ validationSchema })
+const { handleSubmit } = useForm<LoginFormValues>({ validationSchema })
 const auth = useAuthStore()
 
 const email = useField('email')
