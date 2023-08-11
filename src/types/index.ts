@@ -10,6 +10,7 @@ export interface PropertyFormValues {
   rooms: number
   title: string
   wc: number
+  id?: string
 }
 
 export interface LoginFormValues {

@@ -58,12 +58,8 @@ const submit = handleSubmit(async (propertyFormValues) => {
 
     let data: Partial<PropertyFormValues>
 
-    if (imageUrl.value) {
-      data = { ...property, location: center.value, image: url.value! }
-      await updateDoc(docRef, data)
-    } else {
-      data = { ...property, location: center.value }
-    }
+    if (imageUrl.value) data = { ...property, location: center.value, image: url.value! }
+    else data = { ...property, location: center.value }
 
     await updateDoc(docRef, data)
 
