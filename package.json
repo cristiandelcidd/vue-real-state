@@ -18,6 +18,7 @@
     "firebase": "^10.1.0",
     "leaflet": "^1.9.4",
     "pinia": "^2.1.4",
+    "sweetalert2": "^11.7.22",
     "uuid": "^9.0.0",
     "vee-validate": "^4.11.1",
     "vue": "^3.3.4",
